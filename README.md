@@ -58,3 +58,9 @@ python3 convert_to_csv.py --input-path sgl-results.json --output-path sgl-result
 python3 convert_to_csv.py --input-path vllm-results.json --output-path vllm-results.csv
 ```
 
+## Pull Into Local
+
+```bash
+scp rshaw@beaker:~/benchmark_compare/sgl-results.csv ~/Desktop/
+scp rshaw@beaker:~/benchmark_compare/vllm-results.csv ~/Desktop/
+```
