@@ -33,8 +33,7 @@ uv pip install "sglang[all]==0.4.4.post1" --find-links https://flashinfer.ai/whl
 
 ```bash
 MODEL=meta-llama/Llama-3.1-8B-Instruct
-# python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 --enable-mixed-chunk
-python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000
+python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 # --enable-mixed-chunk --enable-torch-compile
 ```
 
 > When inspecting logs, make sure cached-tokens is small!
