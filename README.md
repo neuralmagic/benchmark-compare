@@ -29,8 +29,6 @@ cd ..
 ### Run Benchmark
 
 ```bash
-MODEL=meta-llama/Llama-3.1-8B-Instruct FRAMEWORK=sgl bash ./benchmark-sweep-1000-in-100-out.sh
+MODEL=meta-llama/Llama-3.1-8B-Instruct FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
 ```
 
-
-##
