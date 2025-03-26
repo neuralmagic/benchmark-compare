@@ -1,4 +1,10 @@
-# Install
+## Benchmarking Comparison
+
+## vLLM
+
+## Sglang
+
+### Install
 
 ```bash
 uv venv venv-sgl --python 3.12
@@ -6,16 +12,16 @@ source venv-sgl/bin/activate
 uv pip install "sglang[all]==0.4.4.post1" --find-links https://flashinfer.ai/whl/cu124/torch2.5/flashinfer-python
 ```
 
-## Launch
+### Launch Server
 
 ```bash
 MODEL=meta-llama/Llama-3.1-8B-Instruct
 python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 --enable-mixed-chunk
 ```
 
-## Benchmark
+### Benchmark
 
-### Install
+#### Install
 ```bash
 git clone https://github.com/vllm-project/vllm.git
 cd vllm
@@ -26,7 +32,7 @@ uv pip install pandas datasets
 cd ..
 ```
 
-### Run Benchmark
+#### Run Benchmark
 
 ```bash
 MODEL=meta-llama/Llama-3.1-8B-Instruct FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
