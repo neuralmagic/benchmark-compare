@@ -33,7 +33,8 @@ uv pip install "sglang[all]==0.4.4.post1" --find-links https://flashinfer.ai/whl
 
 ```bash
 MODEL=meta-llama/Llama-3.1-8B-Instruct
-python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 --enable-mixed-chunk
+# python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 --enable-mixed-chunk
+python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000
 ```
 
 > When inspecting logs, make sure cached-tokens is small!
@@ -54,23 +55,14 @@ cd ..
 
 ### Run Benchmark
 
-- `vllm`
-
 ```bash
 FRAMEWORK=vllm bash ./benchmark_1000_in_100_out.sh
-python3 convert_to_csv.py --input-path vllm-results.json --output-path vllm-results.csv
-```
-
-- `sgl`
-```bash
-export MODEL=meta-llama/Llama-3.1-8B-Instruct
 FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
-python3 convert_to_csv.py --input-path sgl-results.json --output-path sgl-results.csv
+python3 convert_to_csv.py --input-path results.json --output-path results.csv
 ```
 
 ### Pull Into Local
 
 ```bash
-scp rshaw@beaker:~/benchmark_compare/sgl-results.csv ~/Desktop/
-scp rshaw@beaker:~/benchmark_compare/vllm-results.csv ~/Desktop/
+scp rshaw@beaker:~/benchmark-compare/results.csv ~/Desktop/
 ```

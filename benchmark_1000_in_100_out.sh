@@ -21,7 +21,8 @@ do
         --num-prompts $NUM_PROMPTS \
         --seed $REQUEST_RATE \
         --ignore-eos \
-        --result-filename "$FRAMEWORK-results.json" \
+        --result-filename "results.json" \
+        --metadata "framework=$FRAMEWORK" \
         --save-result
 
 done
