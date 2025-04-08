@@ -7,7 +7,7 @@
 ```bash
 uv venv venv-vllm --python 3.12
 source venv-vllm/bin/activate
-uv pip install vllm==0.8.2
+uv pip install vllm==0.8.3
 ```
 
 ### Launch
