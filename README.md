@@ -46,7 +46,7 @@ git clone https://github.com/vllm-project/vllm.git
 cd vllm
 git checkout benchmark-output
 uv venv venv-vllm-src --python 3.12
-source venv-vllm-src /bin/activate
+source venv-vllm-src/bin/activate
 VLLM_USE_PRECOMPILED=1 uv pip install -e .
 uv pip install pandas datasets
 cd ..
@@ -55,8 +55,8 @@ cd ..
 ### Run Benchmark
 
 ```bash
-FRAMEWORK=vllm bash ./benchmark_1000_in_100_out.sh
-FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
+MODEL=meta-llama/Llama-3.1-8B-Instruct FRAMEWORK=vllm bash ./benchmark_1000_in_100_out.sh
+MODEL=meta-llama/Llama-3.1-8B-Instruct FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
 python3 convert_to_csv.py --input-path results.json --output-path results.csv
 ```
 
