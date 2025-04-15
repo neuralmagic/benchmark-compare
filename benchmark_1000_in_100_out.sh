@@ -2,6 +2,7 @@ REQUEST_RATES=(1 10 20 30 35)
 INPUT_LEN=1000
 OUTPUT_LEN=100
 TOTAL_SECONDS=120
+PORT=${PORT:-8000}
 
 for REQUEST_RATE in "${REQUEST_RATES[@]}";
 do
@@ -22,6 +23,7 @@ do
         --ignore-eos \
         --result-filename "results.json" \
         --metadata "framework=$FRAMEWORK" \
+	--port ${PORT} \
         --save-result
 
 done
@@ -37,4 +39,5 @@ python3 vllm/benchmarks/benchmark_serving.py \
     --ignore-eos \
     --result-filename "results.json" \
     --metadata "framework=$FRAMEWORK" \
+    --port ${PORT} \
     --save-result
