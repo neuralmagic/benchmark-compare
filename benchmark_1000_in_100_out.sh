@@ -4,13 +4,14 @@ OUTPUT_LEN=100
 TOTAL_SECONDS=120
 PORT=${PORT:-8000}
 MODEL=${MODEL:-meta-llama/Llama-3.1-8B-Instruct}
+FRAMEWORK=${FRAMEWORK:-vllm}
 
 for REQUEST_RATE in "${REQUEST_RATES[@]}";
 do
     NUM_PROMPTS=$(($TOTAL_SECONDS * $REQUEST_RATE))
     
     echo ""
-    echo "===== RUNNING $MODEL FOR $NUM_PROMPTS PROMPTS WITH $REQUEST_RATE QPS ====="
+    echo "===== $FRAMEWORK - RUNNING $MODEL FOR $NUM_PROMPTS PROMPTS WITH $REQUEST_RATE QPS ====="
     echo ""
 
     python3 vllm/benchmarks/benchmark_serving.py \
