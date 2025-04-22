@@ -27,10 +27,14 @@ do
         --result-filename "results.json" \
         --metadata "framework=$FRAMEWORK" \
         --host ${HOST} \
-	--port ${PORT} \
+        --port ${PORT} \
         --save-result
 
 done
+
+echo ""
+echo "===== RUNNING $MODEL FOR 2000 PROMPTS WITH infinite QPS ====="
+echo ""
 
 # inf request rate.pth
 python3 vllm/benchmarks/benchmark_serving.py \
