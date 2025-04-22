@@ -5,6 +5,7 @@ TOTAL_SECONDS=120
 PORT=${PORT:-8000}
 MODEL=${MODEL:-meta-llama/Llama-3.1-8B-Instruct}
 FRAMEWORK=${FRAMEWORK:-vllm}
+VLLM_BENCHMARK_FOLDER=${VLLM_BENCHMARK_FOLDER:-../vllm/benchmark}
 
 for REQUEST_RATE in "${REQUEST_RATES[@]}";
 do
@@ -14,7 +15,7 @@ do
     echo "===== $FRAMEWORK - RUNNING $MODEL FOR $NUM_PROMPTS PROMPTS WITH $REQUEST_RATE QPS ====="
     echo ""
 
-    python3 vllm/benchmarks/benchmark_serving.py \
+    python3 $VLLM_BENCHMARK_FOLDER/benchmark_serving.py \
         --model $MODEL \
         --dataset-name random \
         --random-input-len $INPUT_LEN \
@@ -25,13 +26,13 @@ do
         --ignore-eos \
         --result-filename "results.json" \
         --metadata "framework=$FRAMEWORK" \
-	--port ${PORT} \
-        --save-result
+        --port ${PORT} \
+        --append-result
 
 done
 
 # inf request rate.pth
-python3 vllm/benchmarks/benchmark_serving.py \
+python3 $VLLM_BENCHMARK_FOLDER/benchmark_serving.py \
     --model $MODEL \
     --dataset-name random \
     --random-input-len $INPUT_LEN \
@@ -42,4 +43,4 @@ python3 vllm/benchmarks/benchmark_serving.py \
     --result-filename "results.json" \
     --metadata "framework=$FRAMEWORK" \
     --port ${PORT} \
-    --save-result
+    --append-result

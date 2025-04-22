@@ -13,8 +13,9 @@ uv pip install vllm==0.8.3
 ### Launch
 
 ```bash
-MODEL=meta-llama/Llama-3.1-8B-Instruct
-vllm serve $MODEL --disable-log-requests
+export PORT=8000
+export MODEL=meta-llama/Llama-3.1-8B-Instruct
+vllm serve $MODEL --port $PORT --disable-log-requests --no-enable-prefix-caching --max-model-len 65536
 ```
 
 > When inspecting logs, make sure prefix cache hit rate is low!
@@ -33,7 +34,7 @@ uv pip install "sglang[all]==0.4.4.post1" --find-links https://flashinfer.ai/whl
 
 ```bash
 MODEL=meta-llama/Llama-3.1-8B-Instruct
-python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port 8000 # --enable-mixed-chunk --enable-torch-compile
+python3 -m sglang.launch_server --model-path $MODEL  --host 0.0.0.0 --port $PORT$ # --enable-mixed-chunk --enable-torch-compile
 ```
 
 > When inspecting logs, make sure cached-tokens is small!
@@ -55,8 +56,8 @@ cd ..
 ### Run Benchmark
 
 ```bash
-FRAMEWORK=vllm bash ./benchmark_1000_in_100_out.sh
-FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
+VLLM_BENCHMARKS=../vllm/benchmarks FRAMEWORK=vllm bash ./benchmark_1000_in_100_out.sh
+VLLM_BENCHMARKS=../vllm/benchmarks FRAMEWORK=sgl bash ./benchmark_1000_in_100_out.sh
 python3 convert_to_csv.py --input-path results.json --output-path results.csv
 ```
 
