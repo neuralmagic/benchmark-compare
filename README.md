@@ -65,3 +65,32 @@ python3 convert_to_csv.py --input-path results.json --output-path results.csv
 ```bash
 scp rshaw@beaker:~/benchmark-compare/results.csv ~/Desktop/
 ```
+
+### Running in a Container
+
+Build the container image using the Containerfile located in the root of the directory. This example uses quay registry and podman runtime. Swap these with the container tools of your choice.
+
+Run the container build from the root of this repo.
+
+```
+QUAY_ORG=<quay_account_here>
+podman build -f Containerfile -t quay.io/$QUAY_ORG/vllm-benchmark:latest
+```
+
+- Start the inference engine you are testing as shown above, e.g. SGLang or vLLM. Update the endpoint in the run command below if not using the default HOST:PORT values.
+
+```
+MODEL=meta-llama/Llama-3.1-8B-Instruct
+podman run --rm -it \
+    --network host \
+    -e MODEL="${MODEL}" \
+    -e FRAMEWORK=vllm \
+    -e HF_TOKEN=<INSERT_HF_TOKEN> \
+    -e PORT=8000 \
+    -e HOST=127.0.0.1 \
+    -v "$(pwd)":/host:Z \
+    -w /opt/benchmark \
+    quay.io/$QUAY_ORG/vllm-benchmark:latest
+```
+
+The json benchmark results will be copied to the host machine in the same directory the container was run from.
